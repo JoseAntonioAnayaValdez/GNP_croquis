@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cruce Vehicular</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.3.1/fabric.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .canvas-container {
+            border: 1.8px solid black;
+            background-size: cover;
+            margin-top: 9px;
+            width: 800px;
+            height: 600px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="mb-3 fw-bolder">CROQUIS GNP <i class="fa-solid fa-car-burst"></i></h2>
+    
+    <div class="button-group">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Seleccionar Cruce
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="modificarFondo('cruce.png')">Cruce 1</a></li>
+                <li><a class="dropdown-item" href="#" onclick="modificarFondo('cruce2.png')">Cruce 2</a></li>
+                <li><a class="dropdown-item" href="#" onclick="modificarFondo('cruce3.png')">Cruce 3</a></li>
+            </ul>
+        </div>
+    
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Agregar Vehículo
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="addSedan('sedan.png')">Sedan</a></li>
+            </ul>
+        </div>
+    
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Opciones
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="addPerson()">Agregar persona</a></li>
+                <li><a class="dropdown-item" href="#" onclick="removeSelected()">Eliminar seleccionado</a></li>
+                <li><a class="dropdown-item" href="#" onclick="clearCanvas()">Eliminar todo</a></li>
+                <li><a class="dropdown-item" href="#" onclick="activarLapiz()">Activar o desactivar anotaciones</a></li>
+                <li><a class="dropdown-item" href="#" onclick="borrarDibujo()">Borrar anotaciones</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <canvas id="canvas" width="800" height="600" class="canvas-container"></canvas>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var canvas = new fabric.Canvas('canvas');
+        
+        function modificarFondo(image) {
+            fabric.Image.fromURL('static/' + image, function(img) {
+                img.scaleToWidth(canvas.width);
+                img.scaleToHeight(canvas.height);
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+            });
+        }
+
+        function addSedan(image) {
+            fabric.Image.fromURL('static/' + image, function(img) {
+                img.set({
+                    left: Math.random() * 700,
+                    top: Math.random() * 500,
+                    scaleX: 0.5,
+                    scaleY: 0.5
+                });
+                canvas.add(img);
+            });
+        }
+
+        function addPerson() {
+            fabric.Image.fromURL('static/persona.png', function(img) {
+                img.set({
+                    left: Math.random() * 700,
+                    top: Math.random() * 500,
+                    scaleX: 0.5,
+                    scaleY: 0.5
+                });
+                canvas.add(img);
+            });
+        }
+
+        function removeSelected() {
+            var activeObject = canvas.getActiveObject();
+            if (activeObject) {
+                canvas.remove(activeObject);
+            }
+        }
+
+        function clearCanvas() {
+            canvas.clear();
+        }
+    </script>
+    <script>
+        var isDrawing = false;
+        canvas.isDrawingMode = false;
+    
+        function activarLapiz() {
+            isDrawing = !isDrawing;
+            canvas.isDrawingMode = isDrawing;
+            if (isDrawing) {
+                canvas.freeDrawingBrush.width = 3;
+                canvas.freeDrawingBrush.color = "red";
+            }
+        }
+    
+        function borrarDibujo() {
+            canvas.getObjects().forEach(obj => {
+                if (obj.type === 'path') {
+                    canvas.remove(obj);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
