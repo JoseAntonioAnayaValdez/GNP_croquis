@@ -1,2 +1,30 @@
-carros - Antonio
-arboles - VIlle
+recursos a necesitar:
+croquis: diversas intersecciones y carreteras --Villeda
+
+tipos de carros (cada uno con sus variantes de color ):-- Villeda
+sedan 
+hatchback 
+pickup 
+svu
+trailer 
+motos 
+etc
+
+otros objetos:--Antonio
+peatones 
+postes
+señaletiques
+arboles  
+semovientes 
+
+Satos a guardar:--Antonio
+num de siniestro
+fecha 
+nombre calles
+nombre del ajustador
+nombre del cliente
+plasmar firma 
+celular 
+
+
+6+12
