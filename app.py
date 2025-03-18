@@ -14,6 +14,11 @@ def index():
 def croquis():
     return render_template('croquis.html')
 
+@app.route('/x')
+def croquis2():
+    return render_template('croquis2.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

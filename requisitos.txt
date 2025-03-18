@@ -16,6 +16,7 @@ postes
 señaletiques
 arboles  
 semovientes 
+flechas
 
 Satos a guardar:--Antonio
 num de siniestro
